@@ -26,7 +26,7 @@ export class AppService {
   async promises() {
     const results = [];
     for (let i = 0; i < 10; i++) {
-      results.push(await this.sleep());
+      results.push(await this.sleep(i));
     }
     return results;
   }
@@ -34,17 +34,17 @@ export class AppService {
   async promisesParallel() {
     const promises = [];
     for (let i = 0; i < 10; i++) {
-      promises.push(this.sleep());
+      promises.push(this.sleep(i));
     }
     return Promise.all(promises);
   }
 
-  private async sleep() {
+  private async sleep(n: number) {
     return new Promise((resolve) => {
       this.logger.log('Start sleep');
       setTimeout(() => {
         this.logger.log('Sleep complete');
-        resolve({});
+        resolve(n);
       }, 1000);
     });
   }
